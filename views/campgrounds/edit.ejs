@@ -2,7 +2,12 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6-offset-3">
-    <form action="/campgrounds/<%= campground.id%>?_method=PUT" method="post">
+    <form
+      action="/campgrounds/<%= campground.id%>?_method=PUT"
+      method="post"
+      novalidate
+      class="validated-form"
+    >
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input
@@ -11,8 +16,9 @@
           id="title"
           name="campground[title]"
           value="<%= campground.title%>"
+          required
         />
-        <!-- name designation is a way to group content together. -->
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="location">Location</label>
@@ -22,7 +28,9 @@
           id="location"
           name="campground[location]"
           value="<%= campground.location%>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="image">Image Url</label>
@@ -32,7 +40,9 @@
           id="image"
           name="campground[image]"
           value="<%= campground.image%>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
@@ -47,7 +57,9 @@
             value="<%= campground.price%>"
             aria-label="price"
             aria-describedby="price-label"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
 
@@ -59,9 +71,11 @@
           type="text"
           id="description"
           name="campground[description]"
+          required
         >
 <%= campground.description %></textarea
         >
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-info">Update Campground</button>
