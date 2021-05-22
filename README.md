@@ -1,27 +1,36 @@
-TITLE AND PEOPLE
-TITLE: AIRCAMP
-PEOPLE: DANIEL LI (WEB DEVELOPER)
-DATE: SEE GITHUB FOR LATEST ON VERSION CONTROL 
+# AirCamp
 
-OVERVIEW
-ALLOW USERS TO BUILD AND SHARE CAMPGROUNDS WHICH WILL BE SHOWN ON AN INTERACTIVE MAP VIA GEOGRAPHICAL CODING.
-USERS WILL BE ABLE TO REGISTER AS A USER WITH THEIR OWN UNIQUE USERNAME AND PASSWORD.
-USERS WILL BE ABLE TO VIEW AND REVIEW CAMPGROUNDS. 
-USERS WILL HAVE STRICT ACCCESS RIGHTS/PERMISSIONS.  
+### Title and People
 
+Title: AirCamp
+People: Daniel Li (Web Developer)
+DateL See GitHub for latest version control
 
-MILESTONES
-BASIC STYLING AND CRUD CAPABILITIES
-ERROR HANDLING AND VALIDATING DATA
-INCORPORATING REVIEW MODEL
+---
+
+### Overview
+
+Users will be able to create their own campground and advertise them on the platform
+Camps will be shown on an interactive map
+Registered users will have limited access rights when it comes to creating, updating and deleting campgrounds, but all users will be able to view and review campgrounds.
+
+---
+
+### Milestones
+
+Implement basic styling and CRUD functionality.
+Incorporate both client-side and server-side error handling and validation.
+Add function to allow users to review created campgrounds.
 IMPLEMENT FLASH
 ADD IN AUTHENTICATION
 STAR RATINGS FUNCTIONALITY
 IMAGE UPLOAD FUNCTIONALITY
 ADDING MAPS FUNCTIONALITY
 SECURITY CHECKS
-DEPLOYMENT 
+DEPLOYMENT
 
-FOLLOW-ON-objectives
-ONGOING MAINTENANCE, REFACTORING AND GENERAL IMPROVEMENTS.
+---
 
+### Follow-on objectives
+
+Ongoing maintenance, refactoring and general improvements.
