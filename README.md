@@ -3,7 +3,9 @@
 ### Title and People
 
 Title: AirCamp
+
 People: Daniel Li (Web Developer)
+
 Date: See GitHub for latest version control
 
 ---
