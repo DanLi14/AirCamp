@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/air-camp', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const db = mongoose.connection;
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true })); //allows post req in express vi
 app.use(methodOverride('_method'));
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
+app.use(express.static(path.join(__dirname, 'public')));
 
 //custom middleware for validation using Joi
 
