@@ -12,6 +12,8 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const Review = require('./models/review');
 
+const campgrounds = require('./routes/campgrounds');
+
 mongoose.connect('mongodb://localhost:27017/air-camp', {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -34,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true })); //allows post req in express via form.
 app.use(methodOverride('_method'));
+app.use("/campgrounds", campgrounds)
 
 //custom middleware for validation using Joi
 
@@ -57,72 +60,11 @@ const validateReview = (req, res, next) => {
   }
 };
 
-// CAMPGROUND ROUTES
+// HOME ROUTE
 
 app.get('/', (req, res) => {
   res.render('home'); // first link to home ejs
 });
-
-app.get(
-  '/campgrounds',
-  catchAsync(async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds });
-  })
-);
-
-app.get('/campgrounds/new', (req, res) => {
-  res.render('campgrounds/new');
-});
-
-app.post(
-  '/campgrounds',
-  validateCampground,
-  catchAsync(async (req, res, next) => {
-    const campground = new Campground(req.body.campground);
-    await campground.save();
-    res.redirect(`/campgrounds/${campground._id}`);
-  })
-);
-
-app.get(
-  '/campgrounds/:id',
-  catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate(
-      'reviews'
-    );
-    res.render('campgrounds/show', { campground });
-  })
-);
-
-app.get(
-  '/campgrounds/:id/edit',
-  catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    res.render('campgrounds/edit', { campground });
-  })
-);
-
-app.put(
-  '/campgrounds/:id',
-  validateCampground,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {
-      ...req.body.campground,
-    });
-    res.redirect(`/campgrounds/${campground._id}`);
-  })
-);
-
-app.delete(
-  '/campgrounds/:id',
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    res.redirect('/campgrounds');
-  })
-);
 
 // REVIEW ROUTES
 
