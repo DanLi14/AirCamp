@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const ExpressError = require('./utils/ExpressError');
 const ejsMate = require('ejs-mate'); //Middleware which allows you to implement a boilerplate HTML template across the ejs files.
@@ -11,8 +12,12 @@ const User = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const path = require('path');
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
+
+// MONGOOSE CONNECTION
 
 mongoose.connect('mongodb://localhost:27017/air-camp', {
   useNewUrlParser: true,
@@ -27,13 +32,13 @@ db.once('open', () => {
   console.log('Database connected');
 });
 
-const app = express();
+// VIEWS ENGINE SET-UP
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// app.use to run on every single route.
+// APP.USE CONFIG FOR ROUTES.
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true })); //allows post req in express via form.
@@ -66,12 +71,15 @@ app.use((req, res, next) => {
 
 app.get('/fakeUser', async (req, res) => {
   const user = new User({ email: 'Dan@gmail.com', username: 'danny13' });
-  const newUser = await User.register(user, 'chicken')
-  res.send(newUser)
+  const newUser = await User.register(user, 'chicken');
+  res.send(newUser);
 });
 
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+// LINK TO ROUTES.
+
+app.use('/', userRoutes);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 // HOME ROUTE
 
