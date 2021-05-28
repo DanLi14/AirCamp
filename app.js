@@ -1,18 +1,13 @@
 const express = require('express');
-const path = require('path');
 const mongoose = require('mongoose');
+const ExpressError = require('./utils/ExpressError');
 const ejsMate = require('ejs-mate'); //Middleware which allows you to implement a boilerplate HTML template across the ejs files.
-// const Joi = require('joi'); // Middleware which helps validate devloper/post/server-side errors as oppossed to client-side errors.
+// const Joi = require('joi'); // Middleware which helps validate devloper/post/server-side errors as oppossed to client-side errors. (moved to schemas.js)
 const session = require('express-session');
 const flash = require('connect-flash');
-const { campgroundSchema } = require('./schemas');
-const { reviewSchema } = require('./schemas');
-
 const methodOverride = require('method-override');
-const Campground = require('./models/campground');
-const ExpressError = require('./utils/ExpressError');
-const Review = require('./models/review');
 
+const path = require('path');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 
