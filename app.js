@@ -40,9 +40,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 // APP.USE CONFIG FOR ROUTES.
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true })); //allows post req in express via form.
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
   secret: 'thisshouldbeabettersecret',
@@ -60,19 +60,14 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser);
-passport.deserializeUser(User.deserializeUser);
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
-});
-
-app.get('/fakeUser', async (req, res) => {
-  const user = new User({ email: 'Dan@gmail.com', username: 'danny13' });
-  const newUser = await User.register(user, 'chicken');
-  res.send(newUser);
 });
 
 // LINK TO ROUTES.
