@@ -12,5 +12,5 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(passportLocalMongoose); //This plugin will add field for password and validate usernames to be unique.
 
-modules.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
 
