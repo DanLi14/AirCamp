@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const isLoggedIn = require('../middleware');
-const {validateCampground, isAuthor} = require('../middleware')
+const { isLoggedIn } = require('../middleware');
+const { validateCampground, isAuthor } = require('../middleware');
 const Campground = require('../models/campground');
 
 //ROUTES
@@ -25,7 +25,6 @@ router.post(
   validateCampground,
   catchAsync(async (req, res, next) => {
     const campground = new Campground(req.body.campground);
-    // console.log(req.user);
     campground.author = req.user._id; //This is linked to passport within the session (logged in user)
     await campground.save();
     req.flash('success', 'Successfully made a new campground');
@@ -36,7 +35,11 @@ router.post(
 router.get(
   '/:id',
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    const campground = await Campground.findById(req.params.id)
+      // NEXT LINE IS REALLY IMPORTANT - LINKS EACH REVIEW WITH A PARTICULAR AUTHOR I.E. NESTED POPULATE.
+      .populate({ path: 'reviews', populate: { path: 'author' } })
+      .populate('author');
+    console.log(campground);
     if (!campground) {
       req.flash('error', 'Cannot find that campground');
       return res.redirect('/campgrounds');
