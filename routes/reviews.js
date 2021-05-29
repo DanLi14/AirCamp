@@ -3,20 +3,7 @@ const router = express.Router({ mergeParams: true }); //mergeParams is very impo
 const catchAsync = require('../utils/catchAsync');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
-const ExpressError = require('../utils/ExpressError');
-const { reviewSchema } = require('../schemas');
-
-// MIDDLEWARE
-
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(',');
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
+const { validateReview } = require('../middleware');
 
 // REVIEW ROUTES
 
@@ -41,7 +28,7 @@ router.delete(
     // Pull operator from mongodDB - see docs for further deets.
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    req.flash('success', 'Successfully deleted review')
+    req.flash('success', 'Successfully deleted review');
     res.redirect(`/campgrounds/${id}`);
   })
 );
