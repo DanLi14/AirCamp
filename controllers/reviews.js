@@ -3,7 +3,7 @@ const Campground = require('../models/campground');
 
 module.exports.createReview = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
-  const review = new Review(req.body.review); //note that the method .review links to the form variables we created - review[rating | body]
+  const review = new Review(req.body.review); //note that the method .review links to the form variables we created on show page - review[rating | body]
   review.author = req.user._id; // associates review author with the session user._id
   campground.reviews.push(review);
   await review.save();
