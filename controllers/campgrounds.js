@@ -42,10 +42,11 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
   const { id } = req.params;
+  console.log(req.body);
   const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename })); 
-  campground.images.push(...imgs); // means don't pass in the array, rather pass the data from the array. 
-  await campground.save(); //Needed as otherwise you are adding an array (of the newly uploaded images only) to an existing array. 
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  campground.images.push(...imgs); // means don't pass in the array, rather pass the data from the array.
+  await campground.save(); //Needed as otherwise you are adding an array (of the newly uploaded images only) to an existing array.
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground._id}`);
 };
