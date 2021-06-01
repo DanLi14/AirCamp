@@ -11,7 +11,7 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createCampground = async (req, res, next) => {
   const campground = new Campground(req.body.campground);
-  campground.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  campground.images = req.files.map((f) => ({ url: f.path, filename: f.filename })); //req.files comes from Multer
   campground.author = req.user._id; //This is linked to passport within the session (logged in user)
   await campground.save();
   console.log(campground);
@@ -43,6 +43,9 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateCampground = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename })); 
+  campground.images.push(...imgs); // means don't pass in the array, rather pass the data from the array. 
+  await campground.save(); //Needed as otherwise you are adding an array (of the newly uploaded images only) to an existing array. 
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground._id}`);
 };
