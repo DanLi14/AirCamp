@@ -2,9 +2,15 @@ const mongoose = require('mongoose');
 const Review = require('./review');
 const Schema = mongoose.Schema; //shortcut to avoid writing mongoose.Schema repeatedly.
 
+const imageSchema = new Schema({ url: String, filename: String }); //setting a nested schema for images here allows us to do the following
+
+imageSchema.virtual('thumbnail').get(function(){ //thumbnail property is accessible in EJS - see edit page. 
+  return this.url.replace('/upload', '/upload/w_200') //we use virtual when we don't need to store it in our DB. 
+})
+
 const campgroundSchema = new Schema({
   title: String,
-  images: [{ url: String, filename: String }], // from imgs uploaded to cloudinary
+  images: [imageSchema], // from imgs uploaded to cloudinary
   price: Number,
   description: String,
   location: String,
