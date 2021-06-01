@@ -69,7 +69,7 @@
         <img src="<%=img.url%>" class="img-thumbnail" alt="" />
         <div class="form-check-inline">
           <!-- each selected image has a value which is added to the deleteImages array/[] which is added after the campground obj-->
-          <input type="checkbox" name="deleteImages[]" value="<%= img.filename %> " id="img-<%=i%> " />
+          <input type="checkbox" name="deleteImages[]" value="<%= img.filename %>" id="img-<%=i%>" />
         </div>
         <label for="img-<%=i%>">Delete?</label>
         <% }) %>

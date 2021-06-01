@@ -1,4 +1,5 @@
 const Campground = require('../models/campground');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
   const campgrounds = await Campground.find({});
@@ -14,7 +15,6 @@ module.exports.createCampground = async (req, res, next) => {
   campground.images = req.files.map((f) => ({ url: f.path, filename: f.filename })); //req.files comes from Multer
   campground.author = req.user._id; //This is linked to passport within the session (logged in user)
   await campground.save();
-  console.log(campground);
   req.flash('success', 'Successfully made a new campground');
   res.redirect(`/campgrounds/${campground._id}`);
 };
@@ -47,6 +47,13 @@ module.exports.updateCampground = async (req, res) => {
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   campground.images.push(...imgs); // means don't pass in the array, rather pass the data from the array.
   await campground.save(); //Needed as otherwise you are adding an array (of the newly uploaded images only) to an existing array.
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename); //method on cloudinary to delete the selected img in deleteImages array.
+    }
+    await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } }); //pull and delete images in the deleteImages array from mongoDB.
+    console.log(campground);
+  }
   req.flash('success', 'Successfully updated campground');
   res.redirect(`/campgrounds/${campground._id}`);
 };
