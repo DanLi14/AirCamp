@@ -3,13 +3,20 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 const campgrounds = require('../controllers/campgrounds');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 //ROUTES
 
 router
   .route('/')
   .get(catchAsync(campgrounds.index))
-  .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
+  .post(upload.array('image'), (req, res) => {
+    //upload.single('image') is an operation peformed by the multer middleware/npm.
+    console.log(req.body, req.files);
+    res.send('test works');
+  });
+// .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 
