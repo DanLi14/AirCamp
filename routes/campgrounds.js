@@ -4,7 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
 const campgrounds = require('../controllers/campgrounds');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const { storage } = require('../cloudinary');
+const upload = multer({ storage }); // tells multer to store files in an instance of cloudinary
 
 //ROUTES
 
@@ -12,7 +13,7 @@ router
   .route('/')
   .get(catchAsync(campgrounds.index))
   .post(upload.array('image'), (req, res) => {
-    //upload.single('image') is an operation peformed by the multer middleware/npm.
+    //upload.single/array('image') is an operation peformed by the multer middleware/npm.
     console.log(req.body, req.files);
     res.send('test works');
   });
