@@ -12,12 +12,8 @@ const upload = multer({ storage }); // tells multer to store files in an instanc
 router
   .route('/')
   .get(catchAsync(campgrounds.index))
-  .post(upload.array('image'), (req, res) => {
-    //upload.single/array('image') is an operation peformed by the multer middleware/npm.
-    console.log(req.body, req.files);
-    res.send('test works');
-  });
-// .post(isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
+  //upload.single/array('image') is an operation peformed by the multer middleware/npm.
+  .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));
 
 router.get('/new', isLoggedIn, campgrounds.renderNewForm);
 

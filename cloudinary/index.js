@@ -9,8 +9,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  folder: 'AirCamp',
-  allowedFormats: ['jpeg', 'png', 'jpg'],
+  params: {
+    folder: 'AirCamp',
+    allowedFormats: ['jpeg', 'png', 'jpg'],
+  },
 });
 
 module.exports = {

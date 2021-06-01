@@ -4,7 +4,7 @@ const Schema = mongoose.Schema; //shortcut to avoid writing mongoose.Schema repe
 
 const campgroundSchema = new Schema({
   title: String,
-  image: String,
+  images: [{ url: String, filename: String }], // from imgs uploaded to cloudinary
   price: Number,
   description: String,
   location: String,
