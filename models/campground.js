@@ -5,7 +5,7 @@ const Schema = mongoose.Schema; //shortcut to avoid writing mongoose.Schema repe
 const imageSchema = new Schema({ url: String, filename: String }); //setting a nested schema for images here allows us to do the following
 
 imageSchema.virtual('thumbnail').get(function(){ //thumbnail property is accessible in EJS - see edit page. 
-  return this.url.replace('/upload', '/upload/w_200') //we use virtual when we don't need to store it in our DB. 
+  return this.url.replace('/upload', '/upload/w_200') //we use virtual when we don't need to store it in our DB - in this case img.thumbnail
 })
 
 const campgroundSchema = new Schema({
