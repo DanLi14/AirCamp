@@ -23,7 +23,7 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
   await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 200; i++) {
     const random443 = Math.floor(Math.random() * 443); //there are 443 UKcities in the JSON obj
     const price = Math.floor(Math.random() * 20) + 10;
     const camp = new Campground({
