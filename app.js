@@ -25,6 +25,8 @@ const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
+const MongoStore = require('connect-mongo');
+
 // MONGOOSE CONNECTION
 // mongodb://localhost:27017/air-camp'
 mongoose.connect('mongodb://localhost:27017/air-camp', {
@@ -53,7 +55,18 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
+const store = MongoStore.create({
+  mongoUrl: 'mongodb://localhost:27017/air-camp',
+  touchAfter: 24 * 60 * 60,
+  crypto: { secret: 'thisshouldbeabettersecret' },
+});
+
+store.on('error', function (e) {
+  console.log('session store error', e);
+});
+
 const sessionConfig = {
+  store: store,
   name: 'ACSession',
   secret: 'thisshouldbeabettersecret',
   resave: false,
