@@ -12,6 +12,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 const User = require('./models/user');
 const passport = require('passport');
@@ -57,13 +58,14 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // secure: true, // turn on when deployed. 
+    // secure: true, // turn on when deployed.
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //equates to 1 week
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
