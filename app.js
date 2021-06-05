@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
+const dbUrl = process.env.DB_URL;
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -24,7 +26,7 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
 // MONGOOSE CONNECTION
-
+// mongodb://localhost:27017/air-camp'
 mongoose.connect('mongodb://localhost:27017/air-camp', {
   useNewUrlParser: true,
   useCreateIndex: true,
