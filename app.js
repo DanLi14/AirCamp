@@ -51,11 +51,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
 const sessionConfig = {
+  name: 'ACSession',
   secret: 'thisshouldbeabettersecret',
   resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
+    // secure: true, // turn on when deployed. 
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7, //equates to 1 week
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
