@@ -24,12 +24,11 @@
     </div>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title"><%= campground.title%></h5>
+        <h5 class="card-title"><%= campground.title%> hosted by <%= campground.author.username%></h5>
         <p class="card-text"><%= campground.description%></p>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= campground.location%></li>
-        <li class="list-group-item">Submitted by: <%= campground.author.username%></li>
         <li class="list-group-item">£<%= campground.price%> per night</li>
       </ul>
       <!-- The CurrentUser variable is taken from the app.use middleware in the app file -->
