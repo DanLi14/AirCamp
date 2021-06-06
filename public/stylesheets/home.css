@@ -12,7 +12,11 @@ body {
 }
 
 #footer {
-  margin-top: 175px;
+  position: absolute;
+  height: 50px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .lead {
