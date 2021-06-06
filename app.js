@@ -2,7 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/air-camp';
+const dbUrl = 'mongodb://localhost:27017/air-camp';
+// process.env.DB_URL ||
 
 const express = require('express');
 const app = express();
@@ -25,7 +26,11 @@ const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
-const MongoStore = require('connect-mongo');
+//npm connect-mongo@3.2.0
+const MongoDBStore = require('connect-mongo')(session);
+
+//npm connect-mongo@4.4.1
+// const MongoStore = require('connect-mongo');
 
 // MONGOOSE CONNECTION
 mongoose.connect(dbUrl, {
@@ -56,10 +61,18 @@ app.use(mongoSanitize());
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
-const store = MongoStore.create({
-  mongoUrl: dbUrl,
+//npm connect-mongo@4.4.1
+// const store = MongoStore.create({
+//   mongoUrl: dbUrl,
+//   touchAfter: 24 * 60 * 60,
+//   crypto: { secret: secret },
+// });
+
+//npm connect-mongo@3.2.0
+const store = new MongoDBStore({
+  url: dbUrl,
+  secret,
   touchAfter: 24 * 60 * 60,
-  crypto: { secret: secret },
 });
 
 store.on('error', function (e) {
@@ -67,7 +80,7 @@ store.on('error', function (e) {
 });
 
 const sessionConfig = {
-  store: store,
+  store,
   name: 'ACSession',
   secret,
   resave: false,
