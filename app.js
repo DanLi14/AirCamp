@@ -2,8 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-//heroku push test. 
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -180,6 +178,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render('error', { err });
 });
 
-app.listen(3000, () => {
-  console.log('connected to port 3000');
+const port = proceess.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`connected to port: ${port}`);
 });
+

@@ -1,10 +1,11 @@
 {
-  "name": "AirCamp",
+  "name": "aircamp",
   "version": "1.0.0",
   "description": "TITLE AND PEOPLE TITLE: AIRCAMP PEOPLE: DANIEL LI (WEB DEVELOPER) DATE: SEE GITHUB FOR LATEST ON VERSION CONTROL",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
