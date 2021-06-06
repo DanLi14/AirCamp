@@ -2,9 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const dbUrl = 'mongodb://localhost:27017/air-camp';
-// process.env.DB_URL ||
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -33,6 +30,9 @@ const MongoDBStore = require('connect-mongo')(session);
 // const MongoStore = require('connect-mongo');
 
 // MONGOOSE CONNECTION
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/air-camp';
+
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
