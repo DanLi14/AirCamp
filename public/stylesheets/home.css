@@ -46,3 +46,9 @@ span {
   color: #333;
   text-shadow: none;
 }
+
+@media (max-width: 430px) {
+  #title {
+    display: none;
+  }
+}
