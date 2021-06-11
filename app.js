@@ -178,7 +178,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render('error', { err });
 });
 
-const port = process.env.PORT || 3000;
+// process.env.PORT || 
+const port = 3000;
 app.listen(port, () => {
   console.log(`connected to port: ${port}`);
 });

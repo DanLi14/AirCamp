@@ -11,9 +11,12 @@
 @media (max-width: 430px) {
   #cluster-map {
     height: 300px;
-    margin-top: -35px;
   }
   #campgroundsSubtitle {
     margin-left: -50px;
+  }
+
+  #map {
+    height: 200px;
   }
 }
