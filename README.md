@@ -18,6 +18,11 @@ Date: See GitHub for latest version control
 
 ---
 
+### Config
+
+To run locally in development, please create your own .env file - using .env.example as a template. 
+---
+
 ### Milestones
 
 1. Implement basic styling and CRUD functionality.
